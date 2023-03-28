@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NRLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ladder">
+          <Key>
+            <PropertyRef Name="Position" />
+          </Key>
+          <Property Name="Position" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TeamName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Played" Type="int" Nullable="false" />
+          <Property Name="Points" Type="int" Nullable="false" />
+          <Property Name="Wins" Type="int" Nullable="false" />
+          <Property Name="Lost" Type="int" Nullable="false" />
+          <Property Name="Byes" Type="int" Nullable="false" />
+          <Property Name="For" Type="int" Nullable="false" />
+          <Property Name="Against" Type="int" Nullable="false" />
+          <Property Name="Diff." Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="LeagueName" />
+          </Key>
+          <Property Name="LeagueName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Round" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+          <Property Name="PlayerName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TeamName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Biography" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="int" Nullable="false" />
+          <Property Name="Premierships" Type="int" />
+          <Property Name="RunnerUp" Type="int" />
+          <Property Name="MinorPremierships" Type="int" />
+          <Property Name="TotalWins" Type="int" />
+          <Property Name="TotalLosses" Type="int" />
+          <Property Name="WinPercentage" Type="float" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamName" />
+          </Key>
+          <Property Name="TeamName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Coach" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Captain" Type="varchar" MaxLength="20" />
+          <Property Name="RecordId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Ladder__LeagueNa__2E1BDC42">
+          <End Role="League" Type="Self.League" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ladder" Type="Self.Ladder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="LeagueName" />
+            </Principal>
+            <Dependent Role="Ladder">
+              <PropertyRef Name="LeagueName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ladder__TeamName__2F10007B">
+          <End Role="Team" Type="Self.Team" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ladder" Type="Self.Ladder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamName" />
+            </Principal>
+            <Dependent Role="Ladder">
+              <PropertyRef Name="TeamName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Player__TeamName__2B3F6F97">
+          <End Role="Team" Type="Self.Team" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamName" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="TeamName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Team__RecordId__286302EC">
+          <End Role="Record" Type="Self.Record" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record">
+              <PropertyRef Name="RecordId" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NRLModelStoreContainer">
+          <EntitySet Name="Ladder" EntityType="Self.Ladder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Ladder__LeagueNa__2E1BDC42" Association="Self.FK__Ladder__LeagueNa__2E1BDC42">
+            <End Role="League" EntitySet="League" />
+            <End Role="Ladder" EntitySet="Ladder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ladder__TeamName__2F10007B" Association="Self.FK__Ladder__TeamName__2F10007B">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Ladder" EntitySet="Ladder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Player__TeamName__2B3F6F97" Association="Self.FK__Player__TeamName__2B3F6F97">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Team__RecordId__286302EC" Association="Self.FK__Team__RecordId__286302EC">
+            <End Role="Record" EntitySet="Record" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NRLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ladder">
+          <Key>
+            <PropertyRef Name="Position" />
+          </Key>
+          <Property Name="Position" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeamName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Played" Type="Int32" Nullable="false" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="Wins" Type="Int32" Nullable="false" />
+          <Property Name="Lost" Type="Int32" Nullable="false" />
+          <Property Name="Byes" Type="Int32" Nullable="false" />
+          <Property Name="For" Type="Int32" Nullable="false" />
+          <Property Name="Against" Type="Int32" Nullable="false" />
+          <Property Name="Diff_" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="League" Relationship="Self.FK__Ladder__LeagueNa__2E1BDC42" FromRole="Ladder" ToRole="League" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__Ladder__TeamName__2F10007B" FromRole="Ladder" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="LeagueName" />
+          </Key>
+          <Property Name="LeagueName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Round" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ladders" Relationship="Self.FK__Ladder__LeagueNa__2E1BDC42" FromRole="League" ToRole="Ladder" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <Property Name="PlayerName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeamName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Biography" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__Player__TeamName__2B3F6F97" FromRole="Player" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="Int32" Nullable="false" />
+          <Property Name="Premierships" Type="Int32" />
+          <Property Name="RunnerUp" Type="Int32" />
+          <Property Name="MinorPremierships" Type="Int32" />
+          <Property Name="TotalWins" Type="Int32" />
+          <Property Name="TotalLosses" Type="Int32" />
+          <Property Name="WinPercentage" Type="Double" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Team__RecordId__286302EC" FromRole="Record" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamName" />
+          </Key>
+          <Property Name="TeamName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Coach" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Captain" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RecordId" Type="Int32" />
+          <NavigationProperty Name="Ladders" Relationship="Self.FK__Ladder__TeamName__2F10007B" FromRole="Team" ToRole="Ladder" />
+          <NavigationProperty Name="Players" Relationship="Self.FK__Player__TeamName__2B3F6F97" FromRole="Team" ToRole="Player" />
+          <NavigationProperty Name="Record" Relationship="Self.FK__Team__RecordId__286302EC" FromRole="Team" ToRole="Record" />
+        </EntityType>
+        <Association Name="FK__Ladder__LeagueNa__2E1BDC42">
+          <End Role="League" Type="Self.League" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ladder" Type="Self.Ladder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="LeagueName" />
+            </Principal>
+            <Dependent Role="Ladder">
+              <PropertyRef Name="LeagueName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ladder__TeamName__2F10007B">
+          <End Role="Team" Type="Self.Team" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ladder" Type="Self.Ladder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamName" />
+            </Principal>
+            <Dependent Role="Ladder">
+              <PropertyRef Name="TeamName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Player__TeamName__2B3F6F97">
+          <End Role="Team" Type="Self.Team" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamName" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="TeamName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Team__RecordId__286302EC">
+          <End Role="Record" Type="Self.Record" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record">
+              <PropertyRef Name="RecordId" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NRLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ladders" EntityType="Self.Ladder" />
+          <EntitySet Name="Leagues" EntityType="Self.League" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="Records" EntityType="Self.Record" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="FK__Ladder__LeagueNa__2E1BDC42" Association="Self.FK__Ladder__LeagueNa__2E1BDC42">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="Ladder" EntitySet="Ladders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ladder__TeamName__2F10007B" Association="Self.FK__Ladder__TeamName__2F10007B">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Ladder" EntitySet="Ladders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Player__TeamName__2B3F6F97" Association="Self.FK__Player__TeamName__2B3F6F97">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Team__RecordId__286302EC" Association="Self.FK__Team__RecordId__286302EC">
+            <End Role="Record" EntitySet="Records" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NRLModelStoreContainer" CdmEntityContainer="NRLEntities">
+          <EntitySetMapping Name="Ladders">
+            <EntityTypeMapping TypeName="NRLModel.Ladder">
+              <MappingFragment StoreEntitySet="Ladder">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="Played" ColumnName="Played" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="Lost" ColumnName="Lost" />
+                <ScalarProperty Name="Byes" ColumnName="Byes" />
+                <ScalarProperty Name="For" ColumnName="For" />
+                <ScalarProperty Name="Against" ColumnName="Against" />
+                <ScalarProperty Name="Diff_" ColumnName="Diff." />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leagues">
+            <EntityTypeMapping TypeName="NRLModel.League">
+              <MappingFragment StoreEntitySet="League">
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Round" ColumnName="Round" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="NRLModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Biography" ColumnName="Biography" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Records">
+            <EntityTypeMapping TypeName="NRLModel.Record">
+              <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="Premierships" ColumnName="Premierships" />
+                <ScalarProperty Name="RunnerUp" ColumnName="RunnerUp" />
+                <ScalarProperty Name="MinorPremierships" ColumnName="MinorPremierships" />
+                <ScalarProperty Name="TotalWins" ColumnName="TotalWins" />
+                <ScalarProperty Name="TotalLosses" ColumnName="TotalLosses" />
+                <ScalarProperty Name="WinPercentage" ColumnName="WinPercentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="NRLModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="Coach" ColumnName="Coach" />
+                <ScalarProperty Name="Captain" ColumnName="Captain" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

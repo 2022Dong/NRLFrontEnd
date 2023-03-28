@@ -1,0 +1,98 @@
+﻿@model NRLFrontEnd.Models.Ladder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ladder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Played)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Played)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wins)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wins)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Byes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Byes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.For)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.For)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Against)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Against)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diff_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diff_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.League.LeagueName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.League.LeagueName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.Coach)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.Coach)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Position }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

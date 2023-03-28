@@ -1,0 +1,66 @@
+﻿@model NRLFrontEnd.Models.Record
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Record</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Premierships)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premierships)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunnerUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunnerUp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinorPremierships)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinorPremierships)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalWins)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalWins)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalLosses)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalLosses)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WinPercentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WinPercentage)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecordId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

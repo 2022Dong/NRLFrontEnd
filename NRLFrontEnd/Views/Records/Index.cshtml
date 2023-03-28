@@ -1,0 +1,63 @@
+﻿@model IEnumerable<NRLFrontEnd.Models.Record>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Premierships)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunnerUp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinorPremierships)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalWins)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalLosses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WinPercentage)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Premierships)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunnerUp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinorPremierships)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalWins)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalLosses)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WinPercentage)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecordId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecordId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecordId })
+        </td>
+    </tr>
+}
+
+</table>
